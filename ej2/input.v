@@ -50,6 +50,25 @@ module top(dat_r, dat_w, we, clk, rst, adr);
     _0_ <= mem_r_addr;
     if (mem_w_en) mem[mem_w_addr] <= mem_w_data;
   end
+  reg [7:0] mem [15:0];
+  initial begin
+    mem[0] = 8'hb7;
+    mem[1] = 8'h50;
+    mem[2] = 8'h60;
+    mem[3] = 8'h70;
+    mem[4] = 8'ha2;
+    mem[5] = 8'h0d;
+    mem[6] = 8'hb3;
+    mem[7] = 8'hd8;
+    mem[8] = 8'h64;
+    mem[9] = 8'h7b;
+    mem[10] = 8'hb9;
+    mem[11] = 8'hca;
+    mem[12] = 8'h59;
+    mem[13] = 8'h6c;
+    mem[14] = 8'h24;
+    mem[15] = 8'h5c;
+  end
   assign mem_r_data = mem[_0_];
   assign mem_w_en = we;
   assign mem_w_data = dat_w;
