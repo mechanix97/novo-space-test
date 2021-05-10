@@ -40,13 +40,11 @@ class Stream(Record):
             self.ready <= 0
             return data
 
-
 class Sumador(Elaboratable):
     def __init__(self, width):
         self.a = Stream(width, name='a')
         self.b = Stream(width, name='b')
-        self.r = Stream(width + 1, name='r')
-        self.width = width
+        self.r = Stream(width + 1, name='r') #output width = input width + 1
 
     def elaborate(self, platform):
         m = Module()
@@ -127,6 +125,13 @@ async def limit_cases(dut):
 
     cocotb.fork(stream_input_a.send([0]))
     cocotb.fork(stream_input_b.send([0]))
+    
+    recved = await stream_output.recv(1)
+
+    assert recved == [0]
+
+    cocotb.fork(stream_input_a.send([0b10000001])) #-127
+    cocotb.fork(stream_input_b.send([0b01111111])) #127
     
     recved = await stream_output.recv(1)
 
